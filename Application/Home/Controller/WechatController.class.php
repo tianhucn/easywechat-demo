@@ -10,7 +10,14 @@ class WechatController extends WechatBaseController
     {
         $app = new Application($this->options);
 
-        $response = $app->server->serve();
+        $server = $app->server;
+
+        $server->setMessageHandler(function ($message)
+        {
+            return '您好，欢迎关注';
+        });
+
+        $response = $server->serve();
 
         $response->send();
     }

@@ -19,7 +19,7 @@ class WechatBaseController extends Controller
 
             'log' => [
                 'level' => 'debug',
-                'file' => '/home/vagrant/log/easywechat.log'
+                'file' => '/home/vagrant/Code/aa/Application/Runtime/Logs/easywechat.log',
             ],
         ];
         parent::__construct();
