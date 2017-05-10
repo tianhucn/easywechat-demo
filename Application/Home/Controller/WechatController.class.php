@@ -9,6 +9,9 @@ class WechatController extends WechatBaseController
     public function index()
     {
         $app = new Application($this->options);
-        var_dump($app);
+
+        $response = $app->server->serve();
+
+        $response->send();
     }
 }
