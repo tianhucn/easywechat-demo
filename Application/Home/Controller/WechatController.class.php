@@ -18,7 +18,21 @@ class WechatController extends WechatBaseController
             switch($message->MsgType)
             {
                 case 'event':
-                    return '收到事件消息';
+                    switch($message->Event)
+                    {
+                        case 'subscribe':
+                            return '谢谢关注';
+                            break;
+                        case 'SCAN':
+                            return $message->EventKey."扫码事件";
+                            break;
+                        case 'CLICK':
+                            return $message->EventKey."点击事件";
+                            break;
+                        default:
+                            return '收到事件消息';
+                            break;
+                    }
                     break;
                 case 'text':
                     return '收到文字消息';
