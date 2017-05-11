@@ -16,6 +16,6 @@ class UserController extends WechatBaseController
 
         $user = $userService->get('oFBEXwAkPD7EYhPyzOIVKHPB2USY');
 
-        $userService->remark('oFBEXwAkPD7EYhPyzOIVKHPB2USY','蛤丝');
+        var_dump($user);
     }
 }

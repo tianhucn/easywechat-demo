@@ -19,5 +19,13 @@ return array(
             'scopes' => ['snsapi_userinfo'],
             'callback' => '',
         ],
-    ]
+    ],
+
+    'DB_TYPE' => 'mysqli',
+    'DB_HOST' => '127.0.0.1',
+    'DB_NAME' => 'homestead',
+    'DB_USER' => 'homestead',
+    'DB_PWD' => 'secret',
+    'DB_PORT' => 3306,
+    'DB_PREFIX' => '',
 );
