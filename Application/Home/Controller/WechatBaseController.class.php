@@ -10,18 +10,7 @@ class WechatBaseController extends Controller
     public function __construct()
     {
         require_once './vendor/autoload.php';
-        $this->options = [
-            'debug' => true,
-            'app_id' => 'wx89547bd8268461dd',
-            'secret' => '7fe943d66f24ce0e0d7c152928383826',
-            'token' => 'weixin',
-            'aes_key' => null,
-
-            'log' => [
-                'level' => 'debug',
-                'file' => '/home/vagrant/Code/aa/Application/Runtime/Logs/easywechat.log',
-            ],
-        ];
+        $this->options = C('EASY_WECHAT');
         parent::__construct();
     }
 }
