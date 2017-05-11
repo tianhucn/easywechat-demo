@@ -3,6 +3,7 @@ namespace Home\Controller;
 
 
 use EasyWeChat\Foundation\Application;
+use EasyWeChat\Message\Video;
 
 class WechatController extends WechatBaseController
 {
