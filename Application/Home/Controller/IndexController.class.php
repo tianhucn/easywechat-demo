@@ -7,6 +7,6 @@ class IndexController extends Controller
 {
     public function index()
     {
-        var_dump('xx');
+        echo 'arrived';
     }
 }

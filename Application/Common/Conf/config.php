@@ -14,5 +14,10 @@ return array(
             'level' => 'debug',
             'file' => '/home/vagrant/Code/aa/Application/Runtime/Logs/easywechat.log',
         ],
+
+        'oauth' => [
+            'scopes' => ['snsapi_userinfo'],
+            'callback' => '',
+        ],
     ]
 );
