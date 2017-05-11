@@ -7,6 +7,6 @@ class IndexController extends Controller
 {
     public function index()
     {
-        echo 'arrived';
+        var_dump(session('wechat_user'));
     }
 }
