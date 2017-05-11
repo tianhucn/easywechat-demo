@@ -9,7 +9,6 @@ class WechatBaseController extends Controller
 
     public function __construct()
     {
-        require_once './vendor/autoload.php';
         $this->options = C('EASY_WECHAT');
         parent::__construct();
     }

@@ -16,7 +16,7 @@ class MysqlCacheDriver implements CacheInterface
      */
     public function fetch($id)
     {
-        // TODO: Implement fetch() method.
+        return M('AccessToken')->getField('token');
     }
 
     /**
