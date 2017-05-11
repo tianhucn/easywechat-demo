@@ -4,8 +4,14 @@ namespace Home\Lib;
 
 use Doctrine\Common\Cache\Cache as CacheInterface;
 
-class MysqlCacheDriver implements CacheInterface
+class MysqlDoctrineCacheDriver implements CacheInterface
 {
+    private $model;
+
+    public function __construct()
+    {
+        $this->model = M('DoctrineCache');
+    }
 
     /**
      * Fetches an entry from the cache.
@@ -16,7 +22,16 @@ class MysqlCacheDriver implements CacheInterface
      */
     public function fetch($id)
     {
-        return M('AccessToken')->getField('token');
+        $result = $this->model->where(['label'=>$id])->order('id DESC')->find();
+        if($result == false || $result == null)
+        {
+            return false;
+        }
+        elseif(time() > $result['lifetime'] + $result['created_at'])
+        {
+            return false;
+        }
+        return $result['data'];
     }
 
     /**
@@ -28,7 +43,16 @@ class MysqlCacheDriver implements CacheInterface
      */
     public function contains($id)
     {
-        // TODO: Implement contains() method.
+        $result = $this->model->where(['label'=>$id])->order('id DESC')->find();
+        if($result == false || $result == null)
+        {
+            return false;
+        }
+        elseif(time() > $result['lifetime'] + $result['created_at'])
+        {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -46,7 +70,8 @@ class MysqlCacheDriver implements CacheInterface
      */
     public function save($id, $data, $lifeTime = 0)
     {
-        // TODO: Implement save() method.
+        $result = $this->model->add(['label'=>$id,'data'=>$data,'lifetime'=>$lifeTime,'created_at'=>time()]);
+        return $result == false ? false : true;
     }
 
     /**
@@ -59,7 +84,8 @@ class MysqlCacheDriver implements CacheInterface
      */
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        $result = $this->model->where(['label'=>$id])->delete();
+        return $result == false ? false : true;
     }
 
     /**
@@ -88,6 +114,6 @@ class MysqlCacheDriver implements CacheInterface
      */
     public function getStats()
     {
-        // TODO: Implement getStats() method.
+        return null;
     }
 }
