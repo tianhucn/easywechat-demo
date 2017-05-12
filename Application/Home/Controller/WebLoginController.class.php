@@ -35,13 +35,56 @@ class WebLoginController extends WechatBaseController
 
     public function mobile($token)
     {
-        var_dump('xx');
+        $this->options['oauth']['callback'] = U('callback',['token'=>$token]);
+
+        $app = new Application($this->options);
+        $oauth = $app->oauth;
+
+
+        redirect($oauth->redirect()->getTargetUrl());
+    }
+
+    public function callback($token)
+    {
+        $app = new Application($this->options);
+
+        $oauth = $app->oauth;
+
+        $user = $oauth->user();
+
+        $this->redirect(U('confirm',['token'=>$token,'openid'=>$user['id']]));
+    }
+
+    public function confirm($token,$openid)
+    {
+        $this->assign(compact('token','openid'));
+        $this->display();
+    }
+
+    public function decide($token,$openid)
+    {
+        $result = M('WebLoginStr')->where(['str'=>$token])->save(['openid'=>$openid,'is_confirm'=>1]);
+        var_dump($result);
     }
 
     public function checkLogin($token)
     {
-        $check = M('WebLoginStr')->where(['str'=>$token,'session_id'=>session_id(),'is_confirm'=>0])->find();
+        $check = M('WebLoginStr')->where(['str'=>$token,'session_id'=>session_id()])->find();
+        if($check['is_confirm'] == 1)
+        {
+            $app = new Application($this->options);
+
+            $userService = $app->user;
+
+            $user = $userService->get($check['openid']);
+            session('wechat_user',$user);
+        }
         header('Content-type: application/json;charset=utf-8');
         echo $check['is_confirm'];
+    }
+
+    public function home()
+    {
+        var_dump(session('wechat_user'));
     }
 }
