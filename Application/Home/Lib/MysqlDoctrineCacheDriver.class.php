@@ -29,6 +29,7 @@ class MysqlDoctrineCacheDriver implements CacheInterface
         }
         elseif(time() > $result['lifetime'] + $result['created_at'])
         {
+            $this->delete($id);
             return false;
         }
         return $result['data'];
@@ -50,6 +51,7 @@ class MysqlDoctrineCacheDriver implements CacheInterface
         }
         elseif(time() > $result['lifetime'] + $result['created_at'])
         {
+            $this->delete($id);
             return false;
         }
         return true;
