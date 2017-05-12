@@ -40,7 +40,8 @@ class WebLoginController extends WechatBaseController
 
     public function checkLogin($token)
     {
+        $check = M('WebLoginStr')->where(['str'=>$token,'session_id'=>session_id(),'is_confirm'=>0])->find();
         header('Content-type: application/json;charset=utf-8');
-        echo $token;
+        echo $check['is_confirm'];
     }
 }
