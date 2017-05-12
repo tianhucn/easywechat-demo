@@ -4,6 +4,7 @@ namespace Home\Controller;
 
 
 use EasyWeChat\Foundation\Application;
+use EasyWeChat\Message\Text;
 
 class StaffController extends WechatBaseController
 {
@@ -13,10 +14,8 @@ class StaffController extends WechatBaseController
 
         $staff = $app->staff;
 
-        $staff->create('foo@bar','客服1');
 
-        $staffs = $staff->lists();
-
-        var_dump($staffs);
+        $message = new Text(['content'=>'现在的时间是'.date('Y-m-d H:i:s')]);
+        $staff->message($message)->to('oFBEXwAkPD7EYhPyzOIVKHPB2USY')->send();
     }
 }
